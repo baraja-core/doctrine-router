@@ -1,0 +1,33 @@
+{
+	"name": "baraja-core/doctrine-router",
+	"homepage": "https://gitlab.com/baraja-core/doctrine-router",
+	"authors": [
+		{
+			"name": "Jan Barášek",
+			"homepage": "https://baraja.cz"
+		}
+	],
+	"require": {
+		"php": ">=7.1.0",
+		"baraja-core/doctrine": "^2.0",
+		"baraja-core/localization": "^1.0",
+		"baraja-core/smart-router": "^1.0"
+	},
+	"require-dev": {
+		"tracy/tracy": "^2.7",
+		"symplify/easy-coding-standard": "^7.2",
+		"phpstan/phpstan": "^0.12.18",
+		"phpstan/phpstan-nette": "^0.12.6"
+	},
+	"autoload": {
+		"classmap": [
+			"src/"
+		]
+	},
+	"scripts": {
+		"phpstan": [
+			"vendor/bin/phpstan analyse src -c phpstan.neon --level 6 --no-progress"
+		]
+	},
+	"minimum-stability": "stable"
+}
