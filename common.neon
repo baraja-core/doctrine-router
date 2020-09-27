@@ -1,2 +1,2 @@
 extensions:
-	doctrineRewriter: Baraja\DoctrineRouter\DoctrineRewriter
+	doctrineRouter: Baraja\DoctrineRouter\DoctrineRouterExtension

@@ -6,6 +6,8 @@ namespace Baraja\DoctrineRouter;
 
 
 use Baraja\Doctrine\EntityManager;
+use Baraja\Localization\Translation;
+use Baraja\SmartRouter\MetaData;
 use Baraja\SmartRouter\Rewriter;
 use Baraja\SmartRouter\RewriterParametersMatch;
 use Nette\Caching\Cache;
@@ -38,7 +40,7 @@ final class DoctrineRewriter implements Rewriter
 	public function __construct(EntityManager $entityManager, IStorage $storage)
 	{
 		$this->entityManager = $entityManager;
-		$this->cache = new Cache($storage, 'router-database-rewriter');
+		$this->cache = new Cache($storage, 'router-doctrine-rewriter');
 	}
 
 
@@ -141,6 +143,54 @@ final class DoctrineRewriter implements Rewriter
 		}
 
 		return null;
+	}
+
+
+	public function clearCache(): void
+	{
+		$this->cache->clean([Cache::ALL => true]);
+	}
+
+
+	public function getMetaData(string $path, string $locale): MetaData
+	{
+		static $cache = [];
+
+		if (isset($cache[$key = $path . "\x00" . $locale]) === true) {
+			return $cache[$key];
+		}
+
+		$uri = $this->entityManager->getRepository(Uri::class)
+			->createQueryBuilder('uri')
+			->select('PARTIAL uri.{id, metaTitle, metaDescription, ogTitle, ogDescription, noIndex, noFollow, priority, seoScore}')
+			->where('uri.slug = :path')
+			->andWhere('uri.active = TRUE')
+			->andWhere('uri.locale = :locale')
+			->setParameter('path', $path)
+			->setParameter('locale', $locale)
+			->setMaxResults(1)
+			->getQuery()
+			->getArrayResult();
+
+		$formatter = static function ($haystack) use ($locale): string {
+			if ($haystack instanceof Translation) {
+				return trim($haystack->getTranslation($locale) ?: '');
+			}
+
+			return (string) $haystack;
+		};
+
+		return isset($uri[0]) === true ? $cache[$key] = (new MetaData)
+			->setId((string) $uri[0]['id'])
+			->setMetaTitle($formatter((string) $uri[0]['metaTitle']))
+			->setMetaDescription($formatter((string) $uri[0]['metaDescription']))
+			->setOgTitle($formatter((string) $uri[0]['ogTitle']))
+			->setOgDescription($formatter((string) $uri[0]['ogDescription']))
+			->setNoIndex((bool) $uri[0]['noIndex'])
+			->setNoFollow((bool) $uri[0]['noFollow'])
+			->setPriority((int) $uri[0]['priority'])
+			->setSeoScore($uri[0]['seoScore'])
+			: new MetaData;
 	}
 
 
