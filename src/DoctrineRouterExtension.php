@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Baraja\DoctrineRouter;
 
 
+use Baraja\Doctrine\ORM\DI\OrmAnnotationsExtension;
 use Baraja\SmartRouter\SmartRouter;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\ServiceDefinition;
@@ -12,8 +13,19 @@ use Nette\PhpGenerator\ClassType;
 
 final class DoctrineRouterExtension extends CompilerExtension
 {
+
+	/**
+	 * @return string[]
+	 */
+	public static function mustBeDefinedBefore(): array
+	{
+		return [OrmAnnotationsExtension::class];
+	}
+
+
 	public function beforeCompile(): void
 	{
+		OrmAnnotationsExtension::addAnnotationPath('Baraja\DoctrineRouter', __DIR__ . '/Entity');
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition('barajaDoctrineRewriter')
