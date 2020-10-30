@@ -36,116 +36,71 @@ class Uri
 
 	public const MAX_PRIORITY = 32767;
 
-	/**
-	 * @var string
-	 * @ORM\Column(type="string", unique=true)
-	 */
-	private $slug;
+	/** @ORM\Column(type="string", unique=true) */
+	private string $slug;
 
-	/**
-	 * @var Page
-	 * @ORM\ManyToOne(targetEntity="Page", inversedBy="uris", cascade={"persist"})
-	 */
-	private $page;
+	/** @ORM\ManyToOne(targetEntity="Page", inversedBy="uris", cascade={"persist"}) */
+	private Page $page;
 
-	/**
-	 * @var string|null
-	 * @ORM\Column(type="string", length=36, nullable=true)
-	 */
-	private $parameterId;
+	/** @ORM\Column(type="string", length=36, nullable=true) */
+	private ?string $parameterId = null;
 
-	/**
-	 * @var bool
-	 * @ORM\Column(type="boolean")
-	 */
-	private $active = true;
+	/** @ORM\Column(type="boolean") */
+	private bool $active = true;
 
 	/**
 	 * Alias for redirect. Only match pattern by router, no use for link generator.
 	 *
-	 * @var bool
 	 * @ORM\Column(type="boolean")
 	 */
-	private $oneWay = false;
+	private bool $oneWay = false;
 
-	/**
-	 * @var bool
-	 * @ORM\Column(type="boolean")
-	 */
-	private $onSitemap = true;
+	/** @ORM\Column(type="boolean") */
+	private bool $onSitemap = true;
 
 	/**
 	 * If ($locale === null) exists only one URI for page.
 	 * If ($locale !== null) can be multiple URIs for page.
 	 *
-	 * @var string|null
 	 * @ORM\Column(type="string", length=2, nullable=true)
 	 */
-	private $locale;
+	private ?string $locale = null;
 
-	/**
-	 * @var \DateTime
-	 * @ORM\Column(type="datetime")
-	 */
-	private $insertedDate;
+	/** @ORM\Column(type="datetime") */
+	private \DateTime $insertedDate;
 
-	/**
-	 * @var Translation|null
-	 * @ORM\Column(type="translate", nullable=true)
-	 */
-	private $metaTitle;
+	/** @ORM\Column(type="translate", nullable=true) */
+	private ?Translation $metaTitle = null;
 
-	/**
-	 * @var bool
-	 * @ORM\Column(type="boolean")
-	 */
-	private $keepTitle = false;
+	/** @ORM\Column(type="boolean") */
+	private bool $keepTitle = false;
 
-	/**
-	 * @var Translation|null
-	 * @ORM\Column(type="translate", nullable=true)
-	 */
-	private $metaDescription;
+	/** @ORM\Column(type="translate", nullable=true) */
+	private ?Translation $metaDescription = null;
 
-	/**
-	 * @var Translation|null
-	 * @ORM\Column(type="translate", nullable=true)
-	 */
-	private $ogTitle;
+	/** @ORM\Column(type="translate", nullable=true) */
+	private ?Translation $ogTitle = null;
 
-	/**
-	 * @var Translation|null
-	 * @ORM\Column(type="translate", nullable=true)
-	 */
-	private $ogDescription;
+	/** @ORM\Column(type="translate", nullable=true) */
+	private ?Translation $ogDescription = null;
 
-	/**
-	 * @var bool
-	 * @ORM\Column(type="boolean")
-	 */
-	private $noIndex = false;
+	/** @ORM\Column(type="boolean") */
+	private bool $noIndex = false;
 
-	/**
-	 * @var bool
-	 * @ORM\Column(type="boolean")
-	 */
-	private $noFollow = false;
+	/** @ORM\Column(type="boolean") */
+	private bool $noFollow = false;
 
-	/**
-	 * @var int
-	 * @ORM\Column(type="smallint")
-	 */
-	private $priority = 0;
+	/** @ORM\Column(type="smallint") */
+	private int $priority = 0;
 
 	/**
 	 * Real score in compressed form.
 	 * Format: [Factor]: [Score <0,100>] | ...
 	 * For example: T:34|D:25
 	 *
-	 * @var string|null
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $seoScore;
+	private ?string $seoScore = null;
 
 
 	public function __construct(Page $page, string $slug, string $locale)
@@ -174,8 +129,8 @@ class Uri
 
 
 	/**
-	 * @internal
 	 * @param string $slug
+	 * @internal
 	 */
 	public function setSlug(string $slug): void
 	{

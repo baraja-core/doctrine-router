@@ -21,20 +21,18 @@ final class DoctrineRewriter implements Rewriter
 
 	private const SLUG_TO_ID = 'slug-to-id';
 
-	/** @var EntityManager */
-	private $entityManager;
+	private EntityManager $entityManager;
 
-	/** @var Cache */
-	private $cache;
+	private Cache $cache;
 
 	/** @var mixed[]|null */
-	private $slugToId;
+	private ?array $slugToId = null;
 
 	/** @var mixed[]|null */
-	private $idToSlug;
+	private ?array $idToSlug = null;
 
 	/** @var string[]|null */
-	private $idToRoute;
+	private ?array $idToRoute = null;
 
 
 	public function __construct(EntityManager $entityManager, IStorage $storage)

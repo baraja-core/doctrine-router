@@ -1,6 +1,6 @@
 {
 	"name": "baraja-core/doctrine-router",
-	"homepage": "https://gitlab.com/baraja-core/doctrine-router",
+	"homepage": "https://github.com/baraja-core/doctrine-router",
 	"authors": [
 		{
 			"name": "Jan Barášek",
@@ -8,7 +8,7 @@
 		}
 	],
 	"require": {
-		"php": ">=7.1.0",
+		"php": ">=7.4.0",
 		"baraja-core/doctrine": "^2.0",
 		"baraja-core/localization": "^1.0",
 		"baraja-core/smart-router": "^1.0"

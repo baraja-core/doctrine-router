@@ -28,23 +28,14 @@ class Page
 	use UuidIdentifier;
 	use SmartObject;
 
-	/**
-	 * @var string
-	 * @ORM\Column(type="string", length=16)
-	 */
-	private $module;
+	/** @ORM\Column(type="string", length=16) */
+	private string $module;
 
-	/**
-	 * @var string
-	 * @ORM\Column(type="string", length=128)
-	 */
-	private $presenter;
+	/** @ORM\Column(type="string", length=128) */
+	private string $presenter;
 
-	/**
-	 * @var string
-	 * @ORM\Column(type="string", length=128)
-	 */
-	private $action;
+	/** @ORM\Column(type="string", length=128) */
+	private string $action;
 
 	/**
 	 * @var Uri[]|Collection
