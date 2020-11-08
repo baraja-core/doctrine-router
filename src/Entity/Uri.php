@@ -164,8 +164,8 @@ class Uri
 	 */
 	public function getParameters(): array
 	{
-		if ($this->parameterId !== null) {
-			return ['id' => $this->parameterId];
+		if (($parameterId = $this->getParameterId()) !== null) {
+			return ['id' => $parameterId];
 		}
 
 		return [];
@@ -178,9 +178,19 @@ class Uri
 	}
 
 
-	public function setParameterId(?string $parameterId): void
+	/**
+	 * @param string|int|null|mixed $parameterId
+	 */
+	public function setParameterId($parameterId): void
 	{
-		$this->parameterId = $parameterId;
+		if ($parameterId !== null) {
+			if (\is_int($parameterId) === false && \is_string($parameterId) === false) {
+				throw new \InvalidArgumentException('Paremter ID must be string or int, but type "' . \gettype($parameterId) . '" given.');
+			}
+			$this->parameterId = (string) $parameterId;
+		} else {
+			$this->parameterId = null;
+		}
 	}
 
 
