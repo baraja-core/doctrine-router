@@ -25,8 +25,8 @@ final class DoctrineRouterExtension extends CompilerExtension
 
 	public function beforeCompile(): void
 	{
-		OrmAnnotationsExtension::addAnnotationPath('Baraja\DoctrineRouter', __DIR__ . '/Entity');
 		$builder = $this->getContainerBuilder();
+		OrmAnnotationsExtension::addAnnotationPathToManager($builder, 'Baraja\DoctrineRouter', __DIR__ . '/Entity');
 
 		$builder->addDefinition('barajaDoctrineRewriter')
 			->setFactory(DoctrineRewriter::class)
