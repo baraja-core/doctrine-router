@@ -179,7 +179,7 @@ class Uri
 
 
 	/**
-	 * @param string|int|null|mixed $parameterId
+	 * @param string|int|mixed|null $parameterId
 	 */
 	public function setParameterId($parameterId): void
 	{

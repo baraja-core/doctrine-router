@@ -13,7 +13,6 @@ use Nette\PhpGenerator\ClassType;
 
 final class DoctrineRouterExtension extends CompilerExtension
 {
-
 	/**
 	 * @return string[]
 	 */
@@ -48,10 +47,11 @@ final class DoctrineRouterExtension extends CompilerExtension
 			'// doctrine router.' . "\n"
 			. '(function () {' . "\n"
 			. "\t" . '$this->getService(?)->setRewriter($this->getService(?));' . "\n"
-			. '})();', [
+			. '})();',
+			[
 				$smartRouter->getName(),
 				$doctrineRewriter->getName(),
-			]
+			],
 		);
 	}
 }

@@ -92,7 +92,10 @@ final class DoctrineRewriter implements Rewriter
 		$route = $parameters['presenter'] . ':' . $parameters['action'];
 
 		// Performance match in native array cache
-		if (isset($parameters['id'], $this->idToSlug[$parameters['id']], $this->idToRoute[$parameters['id']]) === true && $this->idToRoute[$parameters['id']] === $route) {
+		if (
+			isset($parameters['id'], $this->idToSlug[$parameters['id']], $this->idToRoute[$parameters['id']]) === true
+			&& $this->idToRoute[$parameters['id']] === $route
+		) {
 			$bestMatch = null;
 			$bestMatchLocale = null;
 			foreach ($this->idToSlug[$parameters['id']] ?? [] as $cacheLocale => $cacheSlug) {
@@ -207,7 +210,9 @@ final class DoctrineRewriter implements Rewriter
 				->getArrayResult();
 
 			foreach ($routes as $routeItem) {
-				$cache[$routeItem['route']] = $routeItem['id'] === null ? null : (string) $routeItem['id'];
+				$cache[$routeItem['route']] = $routeItem['id'] === null
+					? null
+					: (string) $routeItem['id'];
 			}
 		}
 		if (isset($cache[$route]) === false) {
