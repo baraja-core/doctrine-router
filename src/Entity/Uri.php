@@ -34,7 +34,7 @@ class Uri
 	use UuidIdentifier;
 	use SmartObject;
 
-	public const MAX_PRIORITY = 32767;
+	public const MAX_PRIORITY = 32_767;
 
 	/** @ORM\Column(type="string", unique=true) */
 	private string $slug;
