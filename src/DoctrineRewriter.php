@@ -121,9 +121,7 @@ final class DoctrineRewriter implements Rewriter
 			->where('uri.page = :pageId')
 			->andWhere('uri.active = TRUE')
 			->andWhere('uri.oneWay = FALSE')
-			->setParameters([
-				'pageId' => $this->getPageIdByRoute('Front:' . $route),
-			])
+			->setParameter('pageId', $this->getPageIdByRoute('Front:' . $route))
 			->orderBy('uri.priority', 'DESC')
 			->addOrderBy('uri.insertedDate', 'DESC');
 		unset($parameters['presenter'], $parameters['action']);
