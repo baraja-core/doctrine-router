@@ -9,9 +9,9 @@
 	],
 	"require": {
 		"php": "^8.0",
-		"baraja-core/doctrine": "^2.0",
-		"baraja-core/localization": "^1.0",
-		"baraja-core/smart-router": "^1.0"
+		"baraja-core/doctrine": "^3.0",
+		"baraja-core/localization": "^2.0",
+		"baraja-core/smart-router": "^2.0"
 	},
 	"require-dev": {
 		"tracy/tracy": "^2.8",
